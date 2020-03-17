@@ -24,7 +24,7 @@ It is implemented using the function calcOpticalFlowPyrLK in OpenCV. In the name
 calcOpticalFlowPyrLK may not be able to calculate the motion of all the points because of a variety of reasons. For example, the feature point in the current frame could get occluded by another object in the next frame. Fortunately, as you will see in the code below, the status flag in calcOpticalFlowPyrLK can be used to filter out these values.
 
 ### 3.3 Estimate Motion
-To recap, in step 3.1, we found good features to track in the previous frame. In step 3.2, we used optical flow to track the features. In other words, we found the location of the features in the current frame, and we already knew the location of the features in the previous frame. So we can use these two sets of points to find the rigid (Euclidean) transformation that maps the previous frame to the current frame. This is done using the function estimateRigidTransform.
+To recap, in step 3.1, we found good features to track in the previous frame. In step 3.2, we used optical flow to track the features. In other words, we found the location of the features in the current frame, and we already knew the location of the features in the previous frame. So we can use these two sets of points to find the rigid (Euclidean) transformation that maps the previous frame to the current frame. This is done using the function estimateAffinePartial2D.
 
 Once we have estimated the motion, we can decompose it into x and y translation and rotation (angle). We store these values in an array so we can change them smoothly.
 
@@ -56,3 +56,7 @@ When we stabilize a video, we may see some black boundary artifacts. This is exp
 We can mitigate the problem by scaling the video about its center by a small amount (e.g. 10%).
 
 The function fixBorder below shows the implementation. We use getRotationMatrix2D because it scales and rotates the image without moving the center of the image. All we need to do is call this function with 0 rotation and scale 1.1 ( i.e. 10% upscale)
+
+
+## Reference : 
+https://www.learnopencv.com/video-stabilization-using-point-feature-matching-in-opencv/
